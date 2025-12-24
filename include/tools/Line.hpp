@@ -1,0 +1,17 @@
+#pragma once
+
+#include "Tool.hpp"
+
+class Canvas;
+
+struct TLine : Tool
+{
+  QPoint start;
+  QPoint curr;
+  bool   isDragging = false;
+
+  void mousePress(QMouseEvent* event) override;
+  void mouseMove(QMouseEvent* event) override;
+  void mouseRelease(QMouseEvent* event) override;
+  void drawPreview(QPainter& painter) override;
+};
