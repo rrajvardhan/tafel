@@ -8,7 +8,7 @@ class Canvas;
 class Kit : public QWidget
 {
 public:
-  explicit Kit(Canvas* canvas, QWidget* parent = nullptr);
+  explicit Kit(Canvas* canvas);
 
 private:
   Canvas*      canvas = nullptr;

@@ -1,10 +1,8 @@
 #include "Canvas.hpp"
-#include "tools/Line.hpp"
-#include "tools/Rect.hpp"
-#include <QWidget>
 
-Canvas::Canvas(QWidget* parent, int w, int h) : QWidget(parent)
+Canvas::Canvas(QWidget* parent) : QWidget(parent)
 {
+  kit = new Kit(this);
 }
 
 void
@@ -15,17 +13,16 @@ Canvas::addDrawable(std::unique_ptr<Drawable> d)
 }
 
 void
-Canvas::setTool(std::unique_ptr<Tool> tool)
+Canvas::activateTool(std::unique_ptr<Tool> tool)
 {
   currTool = std::move(tool);
-  if (currTool)
-    currTool->setContext(this);
 }
 
 void
 Canvas::paintEvent(QPaintEvent* event)
 {
   QPainter painter(this);
+  painter.setRenderHint(QPainter::Antialiasing);
 
   for (const auto& drawable : drawables)
   {
@@ -41,6 +38,9 @@ Canvas::paintEvent(QPaintEvent* event)
 void
 Canvas::mousePressEvent(QMouseEvent* event)
 {
+  if (event->button() != Qt::LeftButton)
+    return;
+
   if (currTool)
   {
     currTool->mousePress(event);
@@ -50,6 +50,10 @@ Canvas::mousePressEvent(QMouseEvent* event)
 void
 Canvas::mouseMoveEvent(QMouseEvent* event)
 {
+
+  if (!(event->buttons() & Qt::LeftButton))
+    return;
+
   if (currTool)
   {
     currTool->mouseMove(event);
@@ -59,6 +63,9 @@ Canvas::mouseMoveEvent(QMouseEvent* event)
 void
 Canvas::mouseReleaseEvent(QMouseEvent* event)
 {
+  if (event->button() != Qt::LeftButton)
+    return;
+
   if (currTool)
   {
     currTool->mouseRelease(event);
