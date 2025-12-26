@@ -4,13 +4,14 @@
 
 class Canvas;
 
-struct TRect : Tool
+struct TEllipse : Tool
 {
   QPoint start;
   QPoint curr;
+  int    rad1, rad2;
   bool   isDragging = false;
 
-  explicit TRect(CanvasContext& ctx) : Tool(ctx) {}
+  explicit TEllipse(CanvasContext& ctx) : Tool(ctx) {}
 
   void mousePress(QMouseEvent* event) override;
   void mouseMove(QMouseEvent* event) override;

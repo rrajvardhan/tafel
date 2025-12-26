@@ -11,10 +11,6 @@ void
 TRect::mouseMove(QMouseEvent* event)
 {
   curr = event->pos();
-
-  width  = curr.x() - start.x();
-  height = curr.y() - start.y();
-
   canvas.repaint();
 }
 
@@ -25,19 +21,20 @@ TRect::mouseRelease(QMouseEvent* event)
 
   QPen   currentPen   = canvas.pen();
   QBrush currentBrush = canvas.brush();
-  canvas.addDrawable(std::make_unique<Rect>(start, width, height, currentPen, currentBrush));
-  width  = 0;
-  height = 0;
+  canvas.addDrawable(std::make_unique<Rect>(start, curr, currentPen, currentBrush));
 }
 
 void
 TRect::drawPreview(QPainter& painter)
 {
-  if (false == isDragging)
+  if (!isDragging)
     return;
 
   painter.setPen(canvas.pen());
   painter.setBrush(canvas.brush());
+
+  int width  = curr.x() - start.x();
+  int height = curr.y() - start.y();
 
   painter.drawRect(start.x(), start.y(), width, height);
 }

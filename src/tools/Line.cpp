@@ -19,7 +19,6 @@ void
 TLine::mouseRelease(QMouseEvent* event)
 {
   isDragging = false;
-
   canvas.addDrawable(std::make_unique<Line>(start, event->pos(), canvas.pen()));
 }
 

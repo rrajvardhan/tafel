@@ -71,3 +71,22 @@ Canvas::mouseReleaseEvent(QMouseEvent* event)
     currTool->mouseRelease(event);
   }
 }
+
+void
+Canvas::erase(const QPainterPath& eraser)
+{
+  auto er = eraser.boundingRect();
+
+  drawables.erase(std::remove_if(drawables.begin(),
+                                 drawables.end(),
+                                 [&](const std::unique_ptr<Drawable>& d)
+                                 {
+                                   if (!d->bounds().intersects(er))
+                                     return false;
+
+                                   return d->intersects(eraser);
+                                 }),
+                  drawables.end());
+
+  update();
+}

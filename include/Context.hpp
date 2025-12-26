@@ -12,4 +12,5 @@ public:
   virtual QPen   pen() const                            = 0;
   virtual QBrush brush() const                          = 0;
   virtual void   repaint()                              = 0;
+  virtual void   erase(const QPainterPath& eraser)      = 0;
 };

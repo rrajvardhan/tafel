@@ -20,6 +20,7 @@ public:
   QPen   pen() const override { return currentPen; }
   QBrush brush() const override { return currentBrush; }
   void   repaint() override { update(); }
+  void   erase(const QPainterPath& eraser) override;
 
 private:
   QPen   currentPen{ Qt::black, 5 };
