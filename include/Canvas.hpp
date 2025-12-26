@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Drawable.hpp"
 #include "Kit.hpp"
-#include "Tool.hpp"
+#include "drawables/Drawable.hpp"
+#include "tools/Tool.hpp"
 #include <QMouseEvent>
 #include <QPainter>
 #include <QWidget>
@@ -12,8 +12,6 @@ class Canvas : public QWidget, public CanvasContext
 public:
   explicit Canvas(QWidget* parent = nullptr);
   void activateTool(std::unique_ptr<Tool> tool);
-  void setPen(const QPen& pen) { currentPen = pen; }
-  void setBrush(const QBrush& brush) { currentBrush = brush; }
 
   // context
   void   addDrawable(std::unique_ptr<Drawable>) override;

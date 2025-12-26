@@ -1,5 +1,4 @@
-
-#include "Drawable.hpp"
+#include "drawables/Path.hpp"
 #include "tools/Pencil.hpp"
 #include <QMouseEvent>
 #include <QPainter>

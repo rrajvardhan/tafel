@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Drawable.hpp"
+#include "drawables/Drawable.hpp"
 #include <QBrush>
 #include <QPen>
 

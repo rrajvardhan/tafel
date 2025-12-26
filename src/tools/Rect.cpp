@@ -1,3 +1,4 @@
+#include "drawables/Shapes.hpp"
 #include "tools/Rect.hpp"
 
 void
