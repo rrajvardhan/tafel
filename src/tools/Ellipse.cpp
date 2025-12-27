@@ -7,7 +7,7 @@
 void
 TEllipse::mousePress(QMouseEvent* event)
 {
-  start      = event->pos();
+  start      = canvas.toWorld(event->position());
   curr       = start;
   isDragging = true;
 }
@@ -15,7 +15,7 @@ TEllipse::mousePress(QMouseEvent* event)
 void
 TEllipse::mouseMove(QMouseEvent* event)
 {
-  curr = event->pos();
+  curr = canvas.toWorld(event->position());
   canvas.repaint();
 }
 
@@ -24,7 +24,9 @@ TEllipse::mouseRelease(QMouseEvent* event)
 {
   isDragging = false;
 
-  canvas.addDrawable(std::make_unique<Ellipse>(start, event->pos(), canvas.pen(), canvas.brush()));
+  QPointF end = canvas.toWorld(event->position());
+
+  canvas.addDrawable(std::make_unique<Ellipse>(start, end, canvas.pen(), canvas.brush()));
 }
 
 void
@@ -33,7 +35,7 @@ TEllipse::drawPreview(QPainter& painter)
   if (!isDragging)
     return;
 
-  QRect rect(start, curr);
+  QRectF rect(start, curr);
   painter.setPen(canvas.pen());
   painter.setBrush(canvas.brush());
   painter.drawEllipse(rect.normalized());

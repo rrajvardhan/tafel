@@ -1,6 +1,6 @@
 #include "drawables/Shapes.hpp"
 
-Line::Line(const QPoint& start, const QPoint& end, const QPen& p)
+Line::Line(const QPointF& start, const QPointF& end, const QPen& p)
     : Drawable(p, Qt::NoBrush), a(start), b(end)
 {
 }

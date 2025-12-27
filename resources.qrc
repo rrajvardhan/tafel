@@ -10,6 +10,7 @@
 		<file>icons/rect.svg</file>
 		<file>icons/ellipse.svg</file>
 		<file>icons/eraser.svg</file>
+		<file>icons/hand.svg</file>
   
 		<file>icons/brush.svg</file>
 	</qresource>

@@ -6,7 +6,7 @@
 void
 TPencil::mousePress(QMouseEvent* event)
 {
-  path      = QPainterPath(event->pos());
+  path      = QPainterPath(canvas.toWorld(event->position()));
   isDrawing = true;
 }
 
@@ -16,7 +16,7 @@ TPencil::mouseMove(QMouseEvent* event)
   if (!isDrawing)
     return;
 
-  path.lineTo(event->pos());
+  path.lineTo(canvas.toWorld(event->position()));
   canvas.repaint();
 }
 

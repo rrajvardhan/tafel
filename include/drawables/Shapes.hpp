@@ -4,10 +4,10 @@
 
 struct Line : Drawable
 {
-  QPoint a;
-  QPoint b;
+  QPointF a;
+  QPointF b;
 
-  Line(const QPoint& start, const QPoint& end, const QPen& p);
+  Line(const QPointF& start, const QPointF& end, const QPen& p);
 
   void   draw(QPainter& p) override;
   QRectF bounds() const override;
@@ -17,10 +17,10 @@ struct Line : Drawable
 
 struct Rect : Drawable
 {
-  QPoint a;
-  QPoint b;
+  QPointF a;
+  QPointF b;
 
-  Rect(const QPoint& start, const QPoint& end, const QPen& p, const QBrush& br);
+  Rect(const QPointF& start, const QPointF& end, const QPen& p, const QBrush& br);
 
   void   draw(QPainter& p) override;
   QRectF bounds() const override;
@@ -30,10 +30,10 @@ struct Rect : Drawable
 
 struct Ellipse : Drawable
 {
-  QPoint a;
-  QPoint b;
+  QPointF a;
+  QPointF b;
 
-  Ellipse(const QPoint& start, const QPoint& end, const QPen& p, const QBrush& br);
+  Ellipse(const QPointF& start, const QPointF& end, const QPen& p, const QBrush& br);
 
   void   draw(QPainter& p) override;
   QRectF bounds() const override;

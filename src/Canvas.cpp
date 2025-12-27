@@ -47,6 +47,7 @@ Canvas::paintEvent(QPaintEvent* event)
 {
   QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing);
+  painter.translate(panOffset);
 
   for (const auto& drawable : drawables)
   {

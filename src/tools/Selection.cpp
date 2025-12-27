@@ -4,7 +4,7 @@
 void
 TSelect::mousePress(QMouseEvent* e)
 {
-  start = end = e->position();
+  start = end = canvas.toWorld(e->position());
   isDragging  = false;
 
   const auto& sel = canvas.selection();
@@ -31,7 +31,7 @@ TSelect::mousePress(QMouseEvent* e)
 void
 TSelect::mouseMove(QMouseEvent* e)
 {
-  end = e->position();
+  end = canvas.toWorld(e->position());
 
   // Box selection in progress
   if (isDragging)

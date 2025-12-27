@@ -23,6 +23,13 @@ public:
   void      erase(const QPainterPath& eraser) override;
   Drawable* pick(const QPointF& pos) override;
 
+  QPointF toWorld(const QPointF& p) const override { return p - panOffset; }
+  void    pan(const QPointF& delta) override
+  {
+    panOffset += delta;
+    update();
+  }
+
   // ---- selection API ----
   void clearSelection() override;
   void setSelection(const std::vector<Drawable*>& sel) override;
@@ -47,6 +54,7 @@ private:
   std::vector<std::unique_ptr<Drawable>> drawables;
   std::unique_ptr<Tool>                  currTool;
 
+  QPointF panOffset{ 0, 0 };
   QFrame* kitContainer = nullptr;
   Kit*    kit;
 };

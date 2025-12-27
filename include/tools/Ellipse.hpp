@@ -4,10 +4,10 @@
 
 struct TEllipse : Tool
 {
-  QPoint start;
-  QPoint curr;
-  int    rad1, rad2;
-  bool   isDragging = false;
+  QPointF start;
+  QPointF curr;
+  int     rad1, rad2;
+  bool    isDragging = false;
 
   explicit TEllipse(CanvasContext& ctx) : Tool(ctx) {}
 

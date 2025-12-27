@@ -4,14 +4,14 @@
 void
 TRect::mousePress(QMouseEvent* event)
 {
-  start      = event->pos();
+  start      = canvas.toWorld(event->position());
   isDragging = true;
 }
 
 void
 TRect::mouseMove(QMouseEvent* event)
 {
-  curr = event->pos();
+  curr = canvas.toWorld(event->position());
   canvas.repaint();
 }
 

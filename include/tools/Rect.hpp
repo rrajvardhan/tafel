@@ -4,9 +4,9 @@
 
 struct TRect : Tool
 {
-  QPoint start;
-  QPoint curr;
-  bool   isDragging = false;
+  QPointF start;
+  QPointF curr;
+  bool    isDragging = false;
 
   explicit TRect(CanvasContext& ctx) : Tool(ctx) {}
 

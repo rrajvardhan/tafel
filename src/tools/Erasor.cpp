@@ -3,7 +3,7 @@
 void
 TEraser::mousePress(QMouseEvent* event)
 {
-  path      = QPainterPath(event->pos());
+  path      = QPainterPath(canvas.toWorld(event->position()));
   isErasing = true;
 }
 
@@ -13,7 +13,7 @@ TEraser::mouseMove(QMouseEvent* event)
   if (!isErasing)
     return;
 
-  path.lineTo(event->pos());
+  path.lineTo(canvas.toWorld(event->position()));
   canvas.repaint();
 }
 

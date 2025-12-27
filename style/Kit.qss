@@ -1,6 +1,6 @@
 #KitContainer {
   background-color: #E5E5E5;
   border-radius: 10px;
-  border: 1px solid #1C1C1C;
+  border: 2px solid #1C1C1C;
 }
 

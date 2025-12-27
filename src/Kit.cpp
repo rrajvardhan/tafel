@@ -3,6 +3,7 @@
 #include "Erasor.hpp"
 #include "Kit.hpp"
 #include "Line.hpp"
+#include "Pan.hpp"
 #include "Pencil.hpp"
 #include "Rect.hpp"
 #include "Selection.hpp"
@@ -19,9 +20,10 @@ Kit::Kit(Canvas* canvas) : canvas(canvas), QWidget(canvas)
     { "Select", ":/icons/select_arrow.svg", makeTool<TSelect> },
     { "Pencil", ":/icons/pencil.svg", makeTool<TPencil> },
     { "Line", ":/icons/line.svg", makeTool<TLine> },
-    { "Rect", ":/icons/rect.svg", makeTool<TRect> },
+    { "Rectangle", ":/icons/rect.svg", makeTool<TRect> },
     { "Ellipse", ":/icons/ellipse.svg", makeTool<TEllipse> },
     { "Eraser", ":/icons/eraser.svg", makeTool<TEraser> },
+    { "Pan", ":/icons/hand.svg", makeTool<TPan> },
   };
 
   auto* layout = new QHBoxLayout(this);

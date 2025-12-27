@@ -1,6 +1,6 @@
 #include "drawables/Shapes.hpp"
 
-Ellipse::Ellipse(const QPoint& start, const QPoint& end, const QPen& p, const QBrush& br)
+Ellipse::Ellipse(const QPointF& start, const QPointF& end, const QPen& p, const QBrush& br)
     : Drawable(p, br), a(start), b(end)
 {
 }

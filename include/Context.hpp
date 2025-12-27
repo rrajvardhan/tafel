@@ -17,6 +17,8 @@ public:
   virtual void      clearSelection()                                = 0;
   virtual void      setSelection(const std::vector<Drawable*>& sel) = 0;
   virtual void      selectInRect(const QRectF& rect)                = 0;
+  virtual void      pan(const QPointF& delta)                       = 0;
+  virtual QPointF   toWorld(const QPointF& p) const                 = 0;
 
   virtual const std::vector<Drawable*>& selection() const = 0;
 };

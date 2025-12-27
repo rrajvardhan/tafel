@@ -4,9 +4,9 @@
 
 struct TLine : Tool
 {
-  QPoint start;
-  QPoint curr;
-  bool   isDragging = false;
+  QPointF start;
+  QPointF curr;
+  bool    isDragging = false;
 
   explicit TLine(CanvasContext& ctx) : Tool(ctx) {}
 

@@ -1,6 +1,6 @@
 #include "drawables/Shapes.hpp"
 
-Rect::Rect(const QPoint& start, const QPoint& end, const QPen& p, const QBrush& br)
+Rect::Rect(const QPointF& start, const QPointF& end, const QPen& p, const QBrush& br)
     : Drawable(p, br), a(start), b(end)
 {
 }
@@ -43,10 +43,12 @@ Rect::intersects(const QPainterPath& other) const
 
   if (brush != Qt::NoBrush)
   {
+    // Filled rect → area
     testPath = rectPath;
   }
   else
   {
+    // Hollow rect → stroke only
     qreal w = pen.widthF();
     if (w <= 0)
       w = 1.0;
@@ -56,7 +58,16 @@ Rect::intersects(const QPainterPath& other) const
     testPath = stroker.createStroke(rectPath);
   }
 
-  return testPath.intersects(other);
+  for (int i = 0; i < other.elementCount(); ++i)
+  {
+    QPainterPath::Element e = other.elementAt(i);
+    QPointF               point(e.x, e.y);
+
+    if (testPath.contains(point))
+      return true;
+  }
+
+  return false;
 }
 
 void
