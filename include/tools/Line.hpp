@@ -2,8 +2,6 @@
 
 #include "Tool.hpp"
 
-class Canvas;
-
 struct TLine : Tool
 {
   QPoint start;

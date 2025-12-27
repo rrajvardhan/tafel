@@ -12,6 +12,15 @@ Ellipse::draw(QPainter& p)
   p.setPen(pen);
   p.setBrush(brush);
   p.drawEllipse(r.normalized());
+
+  // --- DEBUG: draw bounding rect ---
+  // QPen debugPen(Qt::red);
+  // debugPen.setStyle(Qt::DashLine);
+  // debugPen.setWidth(1);
+  // p.setPen(debugPen);
+  // p.setBrush(Qt::NoBrush);
+  //
+  // p.drawRect(bounds());
 }
 
 QRectF
@@ -23,9 +32,47 @@ Ellipse::bounds() const
 }
 
 bool
-Ellipse::intersects(const QPainterPath& path) const
+Ellipse::intersects(const QPainterPath& other) const
 {
-  QPainterPath e;
-  e.addEllipse(QRectF(a, b).normalized());
-  return path.intersects(e);
+  QRectF r = QRectF(a, b).normalized();
+
+  QPainterPath ellipsePath;
+  ellipsePath.addEllipse(r);
+
+  QPainterPath testPath;
+
+  if (brush != Qt::NoBrush)
+  {
+    // Filled ellipse → area
+    testPath = ellipsePath;
+  }
+  else
+  {
+    // Hollow ellipse → stroke only
+    qreal w = pen.widthF();
+    if (w <= 0)
+      w = 1.0;
+
+    QPainterPathStroker stroker;
+    stroker.setWidth(w);
+    testPath = stroker.createStroke(ellipsePath);
+  }
+
+  for (int i = 0; i < other.elementCount(); ++i)
+  {
+    QPainterPath::Element e = other.elementAt(i);
+    QPointF               point(e.x, e.y);
+
+    if (testPath.contains(point))
+      return true;
+  }
+
+  return false;
+}
+
+void
+Ellipse::translate(const QPointF& d)
+{
+  a += d.toPoint();
+  b += d.toPoint();
 }

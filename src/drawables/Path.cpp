@@ -5,10 +5,19 @@ Path::Path(const QPainterPath& p, const QPen& pen) : Drawable(pen, Qt::NoBrush),
 }
 
 void
-Path::draw(QPainter& painter)
+Path::draw(QPainter& p)
 {
-  painter.setPen(pen);
-  painter.drawPath(path);
+  p.setPen(pen);
+  p.drawPath(path);
+
+  // --- DEBUG: draw bounding rect ---
+  // QPen debugPen(Qt::red);
+  // debugPen.setStyle(Qt::DashLine);
+  // debugPen.setWidth(1);
+  // p.setPen(debugPen);
+  // p.setBrush(Qt::NoBrush);
+  //
+  // p.drawRect(bounds());
 }
 
 QRectF
@@ -41,4 +50,10 @@ Path::intersects(const QPainterPath& other) const
   }
 
   return false;
+}
+
+void
+Path::translate(const QPointF& delta)
+{
+  path.translate(delta);
 }

@@ -2,8 +2,6 @@
 
 #include "Tool.hpp"
 
-class Canvas;
-
 struct TEllipse : Tool
 {
   QPoint start;

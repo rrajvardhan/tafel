@@ -22,6 +22,7 @@ TRect::mouseRelease(QMouseEvent* event)
 
   QPen   currentPen   = canvas.pen();
   QBrush currentBrush = canvas.brush();
+
   canvas.addDrawable(std::make_unique<Rect>(start, curr, currentPen, currentBrush));
 }
 

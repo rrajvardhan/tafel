@@ -33,13 +33,7 @@ TEraser::drawPreview(QPainter& painter)
   if (!isErasing)
     return;
 
-  QPainterPath closedPath = path;
-  if (closedPath.elementCount() > 0)
-  {
-    closedPath.closeSubpath();
-  }
-
   QPen pen(Qt::gray, size, Qt::DashLine, Qt::RoundCap, Qt::RoundJoin);
   painter.setPen(pen);
-  painter.drawPath(closedPath);
+  painter.drawPath(path);
 }

@@ -12,6 +12,15 @@ Rect::draw(QPainter& p)
   p.setPen(pen);
   p.setBrush(brush);
   p.drawRect(r.normalized());
+
+  // --- DEBUG: draw bounding rect ---
+  // QPen debugPen(Qt::red);
+  // debugPen.setStyle(Qt::DashLine);
+  // debugPen.setWidth(1);
+  // p.setPen(debugPen);
+  // p.setBrush(Qt::NoBrush);
+  //
+  // p.drawRect(bounds());
 }
 
 QRectF
@@ -23,9 +32,36 @@ Rect::bounds() const
 }
 
 bool
-Rect::intersects(const QPainterPath& path) const
+Rect::intersects(const QPainterPath& other) const
 {
+  QRectF r = QRectF(a, b).normalized();
+
   QPainterPath rectPath;
-  rectPath.addRect(bounds());
-  return path.intersects(rectPath);
+  rectPath.addRect(r);
+
+  QPainterPath testPath;
+
+  if (brush != Qt::NoBrush)
+  {
+    testPath = rectPath;
+  }
+  else
+  {
+    qreal w = pen.widthF();
+    if (w <= 0)
+      w = 1.0;
+
+    QPainterPathStroker stroker;
+    stroker.setWidth(w);
+    testPath = stroker.createStroke(rectPath);
+  }
+
+  return testPath.intersects(other);
+}
+
+void
+Rect::translate(const QPointF& delta)
+{
+  a += delta.toPoint();
+  b += delta.toPoint();
 }

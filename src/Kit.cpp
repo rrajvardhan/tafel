@@ -5,41 +5,53 @@
 #include "Line.hpp"
 #include "Pencil.hpp"
 #include "Rect.hpp"
+#include "Selection.hpp"
+#include <QButtonGroup>
 #include <QHBoxLayout>
+#include <QPushButton>
 #include <QSizePolicy>
 
 Kit::Kit(Canvas* canvas) : canvas(canvas), QWidget(canvas)
 {
+  setObjectName("Kit");
 
-  button1 = new QPushButton("Line", this);
-  QObject::connect(button1,
-                   &QPushButton::clicked,
-                   [this, canvas]() { canvas->activateTool(std::make_unique<TLine>(*canvas)); });
-
-  button2 = new QPushButton("Pencil", this);
-  QObject::connect(button2,
-                   &QPushButton::clicked,
-                   [this, canvas]() { canvas->activateTool(std::make_unique<TPencil>(*canvas)); });
-
-  button3 = new QPushButton("Ersor", this);
-  QObject::connect(button3,
-                   &QPushButton::clicked,
-                   [this, canvas]() { canvas->activateTool(std::make_unique<TEraser>(*canvas)); });
-
-  const int size = 64;
-
-  for (auto* b : { button1, button2, button3 })
-  {
-    b->setFixedSize(size, size);
-    b->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  }
+  Buttons tools[] = {
+    { "Select", ":/icons/select_arrow.svg", makeTool<TSelect> },
+    { "Pencil", ":/icons/pencil.svg", makeTool<TPencil> },
+    { "Line", ":/icons/line.svg", makeTool<TLine> },
+    { "Rect", ":/icons/rect.svg", makeTool<TRect> },
+    { "Ellipse", ":/icons/ellipse.svg", makeTool<TEllipse> },
+    { "Eraser", ":/icons/eraser.svg", makeTool<TEraser> },
+  };
 
   auto* layout = new QHBoxLayout(this);
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(4);
   layout->setAlignment(Qt::AlignCenter);
 
-  layout->addWidget(button1);
-  layout->addWidget(button2);
-  layout->addWidget(button3);
+  auto* group = new QButtonGroup(this);
+  group->setExclusive(true);
+
+  for (auto& tb : tools)
+  {
+    auto* b = new QPushButton(this);
+    b->setCheckable(true);
+    b->setIcon(QIcon(tb.icon));
+    b->setToolTip(tb.tooltip);
+    b->setIconSize(QSize(32, 32));
+    b->setFixedSize(80, 80);
+    layout->addWidget(b);
+    group->addButton(b);
+
+    connect(b,
+            &QPushButton::toggled,
+            this,
+            [this, tool = tb.tool](bool checked)
+            {
+              if (checked)
+              {
+                this->canvas->activateTool(tool(this->canvas));
+              }
+            });
+  }
 }

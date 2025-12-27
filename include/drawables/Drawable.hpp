@@ -12,4 +12,9 @@ struct Drawable
   virtual void   draw(QPainter& p)                       = 0;
   virtual QRectF bounds() const                          = 0;
   virtual bool   intersects(const QPainterPath& p) const = 0;
+  virtual void   translate(const QPointF& delta)         = 0;
+
+  // TODO: for resize and rotation
+  // virtual void   scale(const QPointF& anchor, qreal sx, qreal sy) = 0;
+  // virtual void   rotate(const QPointF& center, qreal radians)     = 0;
 };

@@ -1,12 +1,14 @@
 #pragma once
 
-#include "Drawable.hpp"
+#include "drawables/Drawable.hpp"
 
-struct Path : Drawable
+struct Text : Drawable
 {
-  QPainterPath path;
+  QString text;
+  QPointF pos;
+  QFont   font;
 
-  Path(const QPainterPath& p, const QPen& pen);
+  Text(const QString& t, const QPointF& p, const QFont& f, const QPen& pen);
 
   void   draw(QPainter& p) override;
   QRectF bounds() const override;

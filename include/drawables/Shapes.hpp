@@ -12,6 +12,7 @@ struct Line : Drawable
   void   draw(QPainter& p) override;
   QRectF bounds() const override;
   bool   intersects(const QPainterPath& p) const override;
+  void   translate(const QPointF& d) override;
 };
 
 struct Rect : Drawable
@@ -24,6 +25,7 @@ struct Rect : Drawable
   void   draw(QPainter& p) override;
   QRectF bounds() const override;
   bool   intersects(const QPainterPath& path) const override;
+  void   translate(const QPointF& d) override;
 };
 
 struct Ellipse : Drawable
@@ -36,4 +38,5 @@ struct Ellipse : Drawable
   void   draw(QPainter& p) override;
   QRectF bounds() const override;
   bool   intersects(const QPainterPath& path) const override;
+  void   translate(const QPointF& d) override;
 };

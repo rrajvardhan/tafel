@@ -2,8 +2,6 @@
 
 #include "Tool.hpp"
 
-class Canvas;
-
 struct TRect : Tool
 {
   QPoint start;

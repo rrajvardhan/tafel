@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="/">
+    
+		<file>style/Common.qss</file>
+    <file>style/Kit.qss</file>
+
+		<file>icons/select_arrow.svg</file>
+		<file>icons/pencil.svg</file>
+    <file>icons/line.svg</file>
+		<file>icons/rect.svg</file>
+		<file>icons/ellipse.svg</file>
+		<file>icons/eraser.svg</file>
+  
+		<file>icons/brush.svg</file>
+	</qresource>
+</RCC>

@@ -21,6 +21,7 @@ file(GLOB_RECURSE SRC_FILES
 include_directories(
     ${INC_DIR}
     ${INC_DIR}/tools
+    ${INC_DIR}/drawables
 )
 
 # === Qt6 ===
@@ -28,10 +29,25 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 qt_standard_project_setup()
 
-qt_add_executable(main
+qt_add_executable(
+		main
     ${SRC_FILES}
 )
 
-target_link_libraries(main
-    PRIVATE Qt6::Widgets
+qt_add_resources(
+		APP_RESOURCES
+    resources.qrc
 )
+
+target_sources(
+	main 
+	PRIVATE 
+	${APP_RESOURCES}
+)
+
+target_link_libraries(
+	main
+  PRIVATE
+  Qt6::Widgets
+)
+
