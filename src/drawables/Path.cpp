@@ -8,6 +8,7 @@ void
 Path::draw(QPainter& p)
 {
   p.setPen(pen);
+  p.setBrush(Qt::NoBrush);
   p.drawPath(path);
 
   // --- DEBUG: draw bounding rect ---
