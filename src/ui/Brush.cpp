@@ -3,6 +3,7 @@
 #include <QButtonGroup>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <qnamespace.h>
 
 namespace UI
 {
@@ -11,6 +12,13 @@ struct Paint
 {
   std::string name;
   QColor      color;
+};
+
+struct BrushPatternBtn
+{
+  const char*    name;
+  const char*    icon;
+  Qt::BrushStyle style;
 };
 
 Brush::Brush(Canvas* canvas) : QWidget(canvas), canvas(canvas)
@@ -47,15 +55,36 @@ Brush::Brush(Canvas* canvas) : QWidget(canvas), canvas(canvas)
   toggle->setToolTip("brush");
   toggle->setIconSize(QSize(32, 32));
 
-  // container
-  auto* colorsWidget = new QWidget(this);
-  colorsWidget->setVisible(false);
-  auto* colorsLayout = new QHBoxLayout(colorsWidget);
-  colorsLayout->setContentsMargins(0, 0, 0, 0);
-  colorsLayout->setSpacing(6);
-  colorsLayout->setAlignment(Qt::AlignLeft);
+  // ---------------------------------------------------------------------------
+  // Master controls container (everything toggled together)
+  // ---------------------------------------------------------------------------
+  auto* controlsWidget = new QWidget(this);
+  auto* controlsLayout = new QVBoxLayout(controlsWidget);
+  controlsLayout->setContentsMargins(0, 0, 0, 0);
+  controlsLayout->setSpacing(6);
+  controlsLayout->setAlignment(Qt::AlignLeft);
 
-  rootLayout->addWidget(colorsWidget);
+  // Row 1: colors
+  auto* rowColors       = new QWidget(controlsWidget);
+  auto* rowColorsLayout = new QHBoxLayout(rowColors);
+  rowColorsLayout->setContentsMargins(0, 0, 0, 0);
+  rowColorsLayout->setSpacing(6);
+  rowColorsLayout->setAlignment(Qt::AlignLeft);
+
+  controlsLayout->addWidget(rowColors);
+
+  auto* rowTools       = new QWidget(controlsWidget);
+  auto* rowToolsLayout = new QHBoxLayout(rowTools);
+  rowToolsLayout->setContentsMargins(0, 0, 0, 0);
+  rowToolsLayout->setSpacing(6);
+  rowToolsLayout->setAlignment(Qt::AlignRight);
+
+  controlsLayout->addWidget(rowTools);
+  controlsWidget->setVisible(false);
+
+  rootLayout->addWidget(controlsWidget);
+
+  connect(toggle, &QPushButton::toggled, controlsWidget, &QWidget::setVisible);
 
   static const Paint paints[] = {
     { "None", QColor(Qt::transparent) }, { "Black", QColor("#0F0F0F") },
@@ -70,7 +99,7 @@ Brush::Brush(Canvas* canvas) : QWidget(canvas), canvas(canvas)
 
   for (const auto& p : paints)
   {
-    auto* b = new QPushButton(colorsWidget);
+    auto* b = new QPushButton(rowColors);
     b->setFixedSize(60, 60);
     b->setToolTip(QString::fromStdString(p.name));
     b->setCheckable(true);
@@ -109,12 +138,6 @@ Brush::Brush(Canvas* canvas) : QWidget(canvas), canvas(canvas)
                            .arg(p.color.name()));
     }
 
-    if (p.name == "None")
-    {
-      b->setIcon(QIcon(":/icons/circle_half.svg"));
-      b->setIconSize(QSize(28, 28));
-    }
-
     group->addButton(b);
 
     connect(b,
@@ -129,16 +152,64 @@ Brush::Brush(Canvas* canvas) : QWidget(canvas), canvas(canvas)
               else
               {
                 QBrush brush = this->canvas->brush();
-                brush.setStyle(Qt::SolidPattern);
                 brush.setColor(p.color);
                 this->canvas->setBrush(brush);
               }
             });
 
-    colorsLayout->addWidget(b);
+    rowColorsLayout->addWidget(b);
   }
 
-  connect(toggle, &QPushButton::toggled, colorsWidget, &QWidget::setVisible);
+  auto* patternWidget = new QWidget(rowTools);
+  auto* patternLayout = new QHBoxLayout(patternWidget);
+  patternLayout->setContentsMargins(0, 0, 0, 0);
+  patternLayout->setSpacing(6);
+
+  rowToolsLayout->addWidget(patternWidget);
+
+  static const BrushPatternBtn patterns[] = {
+    { "Solid", ":/icons/sqaure_solid.svg", Qt::SolidPattern },
+    // { "Diag", ":/icons/brush.svg", Qt::BDiagPattern },
+    { "Cross", ":/icons/brush.svg", Qt::CrossPattern },
+  };
+
+  auto* patternGroup = new QButtonGroup(this);
+  patternGroup->setExclusive(true);
+
+  for (const auto& pat : patterns)
+  {
+    auto* b = new QPushButton(patternWidget);
+    b->setCheckable(true);
+    b->setFixedSize(60, 60);
+    b->setToolTip(pat.name);
+
+    b->setIcon(QIcon(pat.icon));
+    b->setIconSize(QSize(28, 28));
+
+    b->setStyleSheet("QPushButton {"
+                     "  border: 1px solid #1C1C1C;"
+                     "  border-radius: 3px;"
+                     "}"
+                     "QPushButton:hover {"
+                     "  border: 2px dashed rgba(28,28,28,220);"
+                     "}"
+                     "QPushButton:checked {"
+                     "  border: 3px dashed #1C1C1C;"
+                     "}");
+
+    patternGroup->addButton(b);
+    patternLayout->addWidget(b);
+
+    connect(b,
+            &QPushButton::clicked,
+            this,
+            [this, pat]
+            {
+              QBrush brush = this->canvas->brush();
+              brush.setStyle(pat.style);
+              this->canvas->setBrush(brush);
+            });
+  }
 }
 
 }

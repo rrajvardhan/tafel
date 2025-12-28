@@ -18,5 +18,6 @@
 		<file>icons/palette.svg</file>
 		<file>icons/pen_solid.svg</file>
 		<file>icons/pen_dashed.svg</file>
+		<file>icons/sqaure_solid.svg</file>
 	</qresource>
 </RCC>
