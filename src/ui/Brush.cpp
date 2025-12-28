@@ -145,9 +145,12 @@ Brush::Brush(Canvas* canvas) : QWidget(canvas), canvas(canvas)
             this,
             [this, p]
             {
-              if (p.color == Qt::transparent)
+              if (p.name == "None")
               {
-                this->canvas->setBrush(Qt::NoBrush);
+
+                QBrush brush = this->canvas->brush();
+                brush.setColor(p.color);
+                this->canvas->setBrush(brush);
               }
               else
               {
