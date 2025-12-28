@@ -34,7 +34,7 @@ Brush::Brush(Canvas* canvas) : QWidget(canvas), canvas(canvas)
                         "  border-radius: 3px;"
                         "}"
                         "QPushButton:hover {"
-                        "  border: 3px;"
+                        "  border: 2px;"
                         "  border-style: dashed;"
                         "  border-color: rgba(28, 28, 28, 220);"
                         "  border-radius: 3px;"
@@ -75,8 +75,39 @@ Brush::Brush(Canvas* canvas) : QWidget(canvas), canvas(canvas)
     b->setToolTip(QString::fromStdString(p.name));
     b->setCheckable(true);
 
-    b->setStyleSheet(QString("QPushButton { background: %1; border-radius: 3px; }")
-                         .arg(p.color == Qt::transparent ? "transparent" : p.color.name()));
+    if (p.name == "None")
+    {
+      b->setIcon(QIcon(":/icons/circle_half.svg"));
+      b->setIconSize(QSize(28, 28));
+
+      b->setStyleSheet("QPushButton {"
+                       "  border: 1px solid #1C1C1C;"
+                       "  border-radius: 3px;"
+                       "}"
+                       "QPushButton:hover {"
+                       "  border: 2px dashed rgba(28, 28, 28, 220);"
+                       "  border-radius: 3px;"
+                       "}"
+                       "QPushButton:checked {"
+                       "  border: 3px dashed #1C1C1C;"
+                       "}");
+    }
+    else
+    {
+      b->setStyleSheet(QString("QPushButton {"
+                               " 	background-color : %1;"
+                               "  border: 1px solid #1C1C1C;"
+                               "  border-radius: 3px;"
+                               "}"
+                               "QPushButton:hover {"
+                               "  border: 2px dashed rgba(28, 28, 28, 220);"
+                               "  border-radius: 3px;"
+                               "}"
+                               "QPushButton:checked {"
+                               "  border: 3px dashed #1C1C1C;"
+                               "}")
+                           .arg(p.color.name()));
+    }
 
     if (p.name == "None")
     {

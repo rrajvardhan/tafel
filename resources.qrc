@@ -14,6 +14,9 @@
   
 		<file>icons/brush.svg</file>
 		<file>icons/circle_half.svg</file>
+		<file>icons/circle_solid.svg</file>
 		<file>icons/palette.svg</file>
+		<file>icons/pen_solid.svg</file>
+		<file>icons/pen_dashed.svg</file>
 	</qresource>
 </RCC>

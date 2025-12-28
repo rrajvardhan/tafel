@@ -46,7 +46,7 @@ public:
 private:
   std::vector<Drawable*> selections;
 
-  QPen   currentPen{ Qt::black, 5 };
+  QPen   currentPen{ Qt::black, 4 };
   QBrush currentBrush{ Qt::NoBrush };
 
   void paintEvent(QPaintEvent* event) override;

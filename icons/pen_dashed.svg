@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+	<line
+		x1="32" y1="256"
+		x2="416" y2="256"
+		stroke="currentColor"
+		stroke-width="64"
+		stroke-linecap="round"
+		stroke-dasharray="40 80"
+	/>
+</svg>
