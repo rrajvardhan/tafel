@@ -22,6 +22,7 @@ include_directories(
     ${INC_DIR}
     ${INC_DIR}/tools
     ${INC_DIR}/drawables
+    ${INC_DIR}/ui
 )
 
 # === Qt6 ===

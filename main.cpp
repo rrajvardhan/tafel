@@ -23,7 +23,7 @@ main(int argc, char** argv)
 
   QString style;
   style += loadQss(":/style/Common.qss");
-  style += loadQss(":/style/Kit.qss");
+  style += loadQss(":/style/UI.qss");
 
   qApp->setStyleSheet(style);
 

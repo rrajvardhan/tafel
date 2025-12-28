@@ -35,5 +35,6 @@ TEraser::drawPreview(QPainter& painter)
 
   QPen pen(Qt::gray, size, Qt::DashLine, Qt::RoundCap, Qt::RoundJoin);
   painter.setPen(pen);
+  painter.setBrush(Qt::NoBrush);
   painter.drawPath(path);
 }

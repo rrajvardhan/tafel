@@ -5,6 +5,8 @@
 
 class Canvas;
 
+namespace UI
+{
 struct Buttons
 {
   const char*                                   tooltip;
@@ -27,3 +29,4 @@ public:
 private:
   Canvas* canvas = nullptr;
 };
+}

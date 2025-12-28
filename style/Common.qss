@@ -2,7 +2,7 @@ QPushButton {
   color: #1C1C1C;
   background-color: #E5E5E5;
   border: none;
-  border-radius: 10px;
+  border-radius: 3px;
 }
 
 QPushButton:hover {
@@ -20,7 +20,7 @@ QToolTip {
   background-color: #E5E5E5;
 	border: 2px solid #1C1C1C;
   border-color: rgba(28, 28, 28, 220);
-  border-radius: 10px;
+  border-radius: 3px;
 	padding: 1px;
   font-size: 12pt;
 }

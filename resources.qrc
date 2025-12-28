@@ -2,7 +2,7 @@
   <qresource prefix="/">
     
 		<file>style/Common.qss</file>
-    <file>style/Kit.qss</file>
+    <file>style/UI.qss</file>
 
 		<file>icons/select_arrow.svg</file>
 		<file>icons/pencil.svg</file>
@@ -13,5 +13,7 @@
 		<file>icons/hand.svg</file>
   
 		<file>icons/brush.svg</file>
+		<file>icons/circle_half.svg</file>
+		<file>icons/palette.svg</file>
 	</qresource>
 </RCC>

@@ -1,0 +1,105 @@
+
+#include "Canvas.hpp"
+#include "ui/Stroke.hpp"
+#include <QButtonGroup>
+#include <QHBoxLayout>
+#include <QPushButton>
+
+namespace UI
+{
+struct Paint
+{
+  std::string name;
+  QColor      color;
+};
+
+Stroke::Stroke(Canvas* canvas) : QWidget(canvas), canvas(canvas)
+{
+  setObjectName("Stroke");
+
+  auto* rootLayout = new QHBoxLayout(this);
+  rootLayout->setContentsMargins(0, 0, 0, 0);
+  rootLayout->setSpacing(4);
+  rootLayout->setAlignment(Qt::AlignLeft);
+
+  // toggle button
+  auto* toggle = new QPushButton(this);
+  toggle->setCheckable(true);
+  toggle->setFixedSize(80, 80);
+  toggle->setChecked(false);
+  rootLayout->addWidget(toggle);
+
+  toggle->setStyleSheet("QPushButton {"
+                        "  border: 2px solid #1C1C1C;"
+                        "  border-radius: 3px;"
+                        "}"
+                        "QPushButton:hover {"
+                        "  border: 3px;"
+                        "  border-style: dashed;"
+                        "  border-color: rgba(28, 28, 28, 220);"
+                        "  border-radius: 3px;"
+                        "}"
+                        "QPushButton:checked {"
+                        "  border:3px dashed #1C1C1C;"
+                        "}");
+
+  toggle->setIcon(QIcon(":/icons/palette.svg"));
+  toggle->setToolTip("pen");
+  toggle->setIconSize(QSize(32, 32));
+
+  // Container for color buttons
+  auto* colorsWidget = new QWidget(this);
+  colorsWidget->setVisible(false);
+  auto* colorsLayout = new QHBoxLayout(colorsWidget);
+  colorsLayout->setContentsMargins(0, 0, 0, 0);
+  colorsLayout->setSpacing(6);
+  colorsLayout->setAlignment(Qt::AlignLeft);
+
+  rootLayout->addWidget(colorsWidget);
+
+  static const Paint paints[] = {
+    { "None", QColor(Qt::transparent) }, { "Black", QColor("#0F0F0F") },
+    { "Gray", QColor("#6B7280") },       { "White", QColor("#FFFFFF") },
+    { "Red", QColor("#EF4444") },        { "Amber", QColor("#F59E0B") },
+    { "Lime", QColor("#84CC16") },       { "Cyan", QColor("#06B6D4") },
+    { "Blue", QColor("#3B82F6") },       { "Violet", QColor("#8B5CF6") },
+  };
+
+  auto* group = new QButtonGroup(this);
+  group->setExclusive(true);
+
+  for (const auto& p : paints)
+  {
+
+    auto* b = new QPushButton(colorsWidget);
+    b->setFixedSize(60, 60);
+    b->setToolTip(QString::fromStdString(p.name));
+    b->setCheckable(true);
+
+    b->setStyleSheet(
+        QString("QPushButton { background: %1; border-radius: 3px; }").arg(p.color.name()));
+
+    if (p.name == "None")
+    {
+      b->setIcon(QIcon(":/icons/circle_half.svg"));
+      b->setIconSize(QSize(28, 28));
+      b->setStyleSheet("QPushButton { background: transparent; border-radius: 3px; }");
+    }
+
+    group->addButton(b);
+
+    connect(b,
+            &QPushButton::clicked,
+            this,
+            [this, p]
+            {
+              QPen pen = this->canvas->pen();
+              pen.setColor(p.color);
+              this->canvas->setPen(pen);
+            });
+
+    colorsLayout->addWidget(b);
+  }
+  connect(toggle, &QPushButton::toggled, colorsWidget, &QWidget::setVisible);
+}
+}

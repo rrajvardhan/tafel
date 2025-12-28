@@ -1,17 +1,19 @@
 #include "Canvas.hpp"
 #include "Ellipse.hpp"
 #include "Erasor.hpp"
-#include "Kit.hpp"
 #include "Line.hpp"
 #include "Pan.hpp"
 #include "Pencil.hpp"
 #include "Rect.hpp"
 #include "Selection.hpp"
+#include "ui/Kit.hpp"
 #include <QButtonGroup>
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QSizePolicy>
 
+namespace UI
+{
 Kit::Kit(Canvas* canvas) : canvas(canvas), QWidget(canvas)
 {
   setObjectName("Kit");
@@ -56,4 +58,5 @@ Kit::Kit(Canvas* canvas) : canvas(canvas), QWidget(canvas)
               }
             });
   }
+}
 }

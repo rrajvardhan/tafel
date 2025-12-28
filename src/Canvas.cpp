@@ -4,22 +4,34 @@
 
 Canvas::Canvas(QWidget* parent) : QWidget(parent)
 {
-  kitContainer = new QFrame(this);
+  auto* kitContainer = new QFrame(this);
   kitContainer->setObjectName("KitContainer");
 
-  kit = new Kit(this);
+  _kit = new UI::Kit(this);
 
-  // Layout INSIDE the container
-  auto* containerLayout = new QHBoxLayout(kitContainer);
-  containerLayout->setContentsMargins(8, 8, 8, 8);
-  containerLayout->addWidget(kit);
+  auto* kitLayout = new QHBoxLayout(kitContainer);
+  kitLayout->setContentsMargins(8, 8, 8, 8);
+  kitLayout->addWidget(_kit);
 
-  // Layout for the canvas
+  auto* paletteContainer = new QFrame(this);
+  paletteContainer->setObjectName("PaletteContainer");
+
+  _stroke = new UI::Stroke(this);
+  _brush  = new UI::Brush(this);
+
+  auto* paletteLayout = new QVBoxLayout(paletteContainer);
+  paletteLayout->setContentsMargins(8, 8, 8, 8);
+  paletteLayout->setSpacing(8);
+
+  paletteLayout->addWidget(_stroke);
+  paletteLayout->addWidget(_brush);
+
   auto* layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 8, 0, 0);
-  layout->setSpacing(0);
+  layout->setSpacing(6);
 
   layout->addWidget(kitContainer, 0, Qt::AlignTop | Qt::AlignHCenter);
+  layout->addWidget(paletteContainer, 0, Qt::AlignLeft | Qt::AlignHCenter);
   layout->addStretch();
 }
 

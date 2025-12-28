@@ -38,5 +38,6 @@ TPencil::drawPreview(QPainter& painter)
     return;
 
   painter.setPen(canvas.pen());
+  painter.setBrush(Qt::NoBrush);
   painter.drawPath(path);
 }

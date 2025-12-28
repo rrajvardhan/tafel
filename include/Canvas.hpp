@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Kit.hpp"
 #include "drawables/Drawable.hpp"
 #include "tools/Tool.hpp"
+#include "ui/Brush.hpp"
+#include "ui/Kit.hpp"
+#include "ui/Stroke.hpp"
 #include <QFrame>
 #include <QMouseEvent>
 #include <QPainter>
@@ -14,6 +16,8 @@ class Canvas : public QWidget, public CanvasContext
 public:
   explicit Canvas(QWidget* parent = nullptr);
   void activateTool(std::unique_ptr<Tool> tool);
+  void setPen(QPen pen) { currentPen = pen; }
+  void setBrush(QBrush brush) { currentBrush = brush; }
 
   //---------------------- context -------------------------
   void      addDrawable(std::unique_ptr<Drawable>) override;
@@ -55,6 +59,8 @@ private:
   std::unique_ptr<Tool>                  currTool;
 
   QPointF panOffset{ 0, 0 };
-  QFrame* kitContainer = nullptr;
-  Kit*    kit;
+
+  UI::Kit*    _kit;
+  UI::Stroke* _stroke;
+  UI::Brush*  _brush;
 };

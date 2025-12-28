@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Canvas.hpp"
-#include "Kit.hpp"
+#include "ui/Kit.hpp"
 #include <QMouseEvent>
 #include <QPainter>
 #include <QWidget>
@@ -13,5 +13,4 @@ public:
 
 private:
   Canvas* canvas;
-  Kit*    kit;
 };
