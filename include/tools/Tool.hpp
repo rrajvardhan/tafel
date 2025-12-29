@@ -13,6 +13,7 @@ struct Tool
   virtual void mouseMove(QMouseEvent* event) {}
   virtual void mouseRelease(QMouseEvent* event) {}
   virtual void drawPreview(QPainter& painter) {}
+  virtual void keyPress(QKeyEvent* event) {};
 
 protected:
   CanvasContext& canvas;

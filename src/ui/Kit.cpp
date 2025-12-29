@@ -6,6 +6,7 @@
 #include "Pencil.hpp"
 #include "Rect.hpp"
 #include "Selection.hpp"
+#include "Text.hpp"
 #include "ui/Kit.hpp"
 #include <QButtonGroup>
 #include <QHBoxLayout>
@@ -26,6 +27,7 @@ Kit::Kit(Canvas* canvas) : canvas(canvas), QWidget(canvas)
     { "Ellipse", ":/icons/ellipse.svg", makeTool<TEllipse> },
     { "Eraser", ":/icons/eraser.svg", makeTool<TEraser> },
     { "Pan", ":/icons/hand.svg", makeTool<TPan> },
+    { "Text", ":/icons/text.svg", makeTool<TText> },
   };
 
   auto* layout = new QHBoxLayout(this);

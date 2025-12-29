@@ -4,6 +4,8 @@
 
 Canvas::Canvas(QWidget* parent) : QWidget(parent)
 {
+  setFocusPolicy(Qt::StrongFocus);
+
   auto* kitContainer = new QFrame(this);
   kitContainer->setObjectName("KitContainer");
 
@@ -126,6 +128,19 @@ Canvas::mouseReleaseEvent(QMouseEvent* event)
 }
 
 void
+Canvas::keyPressEvent(QKeyEvent* event)
+{
+  if (currTool)
+  {
+    currTool->keyPress(event);
+  }
+  else
+  {
+    QWidget::keyPressEvent(event);
+  }
+}
+
+void
 Canvas::erase(const QPainterPath& eraser)
 {
   selections.clear();
@@ -149,7 +164,7 @@ Drawable*
 Canvas::pick(const QPointF& pos)
 {
   QPainterPath p;
-  p.addEllipse(pos, 3, 3); // small tolerance
+  p.addEllipse(pos, 3, 3);
 
   for (auto it = drawables.rbegin(); it != drawables.rend(); ++it)
   {

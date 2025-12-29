@@ -19,5 +19,6 @@
 		<file>icons/pen_solid.svg</file>
 		<file>icons/pen_dashed.svg</file>
 		<file>icons/sqaure_solid.svg</file>
+		<file>icons/text.svg</file>
 	</qresource>
 </RCC>

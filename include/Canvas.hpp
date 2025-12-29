@@ -54,6 +54,7 @@ private:
   void mouseMoveEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;
   void resizeEvent(QResizeEvent* event) override;
+  void keyPressEvent(QKeyEvent* event) override;
 
   std::vector<std::unique_ptr<Drawable>> drawables;
   std::unique_ptr<Tool>                  currTool;

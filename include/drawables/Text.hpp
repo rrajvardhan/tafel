@@ -1,6 +1,8 @@
 #pragma once
 
 #include "drawables/Drawable.hpp"
+#include <QFont>
+#include <QString>
 
 struct Text : Drawable
 {
@@ -12,6 +14,6 @@ struct Text : Drawable
 
   void   draw(QPainter& p) override;
   QRectF bounds() const override;
-  bool   intersects(const QPainterPath& p) const override;
+  bool   intersects(const QPainterPath& path) const override;
   void   translate(const QPointF& d) override;
 };
