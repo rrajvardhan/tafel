@@ -2,6 +2,7 @@
 #include "Window.hpp"
 #include <QApplication>
 #include <QFile>
+#include <QFontDatabase>
 
 QString
 loadQss(const QString& path)
@@ -18,6 +19,16 @@ int
 main(int argc, char** argv)
 {
   QApplication app(argc, argv);
+
+  int fontId = QFontDatabase::addApplicationFont(":/fonts/PatrickHand-Regular.ttf");
+
+  if (fontId != -1)
+  {
+    QString family = QFontDatabase::applicationFontFamilies(fontId).at(0);
+
+    QFont font(family);
+    app.setFont(font);
+  }
 
   app.setPalette(Color::Default());
 

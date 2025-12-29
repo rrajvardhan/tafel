@@ -20,5 +20,8 @@
 		<file>icons/pen_dashed.svg</file>
 		<file>icons/sqaure_solid.svg</file>
 		<file>icons/text.svg</file>
+
+
+		<file>fonts/PatrickHand-Regular.ttf</file>
 	</qresource>
 </RCC>
