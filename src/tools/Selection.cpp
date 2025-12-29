@@ -12,6 +12,9 @@ scaleHandle(const QRectF& r)
 void
 TSelect::mousePress(QMouseEvent* e)
 {
+  if (e->button() != Qt::LeftButton)
+    return;
+
   start = end = canvas.toWorld(e->position());
   isDragging  = false;
   isScaling   = false;
@@ -113,8 +116,11 @@ TSelect::mouseMove(QMouseEvent* e)
 }
 
 void
-TSelect::mouseRelease(QMouseEvent*)
+TSelect::mouseRelease(QMouseEvent* e)
 {
+  if (e->button() != Qt::LeftButton)
+    return;
+
   if (isScaling)
   {
     isScaling = false;

@@ -8,6 +8,8 @@ struct TPencil : Tool
   QPointF      lastPoint;
   bool         isDrawing = false;
 
+  bool hasLastPoint = false;
+
   explicit TPencil(CanvasContext& ctx) : Tool(ctx) {}
 
   void mousePress(QMouseEvent*) override;

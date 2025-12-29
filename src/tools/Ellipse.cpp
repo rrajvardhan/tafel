@@ -7,6 +7,9 @@
 void
 TEllipse::mousePress(QMouseEvent* event)
 {
+  if (event->button() != Qt::LeftButton)
+    return;
+
   start      = canvas.toWorld(event->position());
   curr       = start;
   isDragging = true;
@@ -22,6 +25,9 @@ TEllipse::mouseMove(QMouseEvent* event)
 void
 TEllipse::mouseRelease(QMouseEvent* event)
 {
+  if (event->button() != Qt::LeftButton)
+    return;
+
   isDragging = false;
 
   QPointF end = canvas.toWorld(event->position());

@@ -4,6 +4,10 @@
 void
 TRect::mousePress(QMouseEvent* event)
 {
+
+  if (event->button() != Qt::LeftButton)
+    return;
+
   start      = canvas.toWorld(event->position());
   curr       = start;
   isDragging = true;
@@ -19,6 +23,10 @@ TRect::mouseMove(QMouseEvent* event)
 void
 TRect::mouseRelease(QMouseEvent* event)
 {
+
+  if (event->button() != Qt::LeftButton)
+    return;
+
   isDragging = false;
 
   QPen   currentPen   = canvas.pen();

@@ -93,9 +93,6 @@ Canvas::paintEvent(QPaintEvent* event)
 void
 Canvas::mousePressEvent(QMouseEvent* event)
 {
-  if (event->button() != Qt::LeftButton)
-    return;
-
   if (currTool)
   {
     currTool->mousePress(event);
@@ -105,10 +102,6 @@ Canvas::mousePressEvent(QMouseEvent* event)
 void
 Canvas::mouseMoveEvent(QMouseEvent* event)
 {
-
-  if (!(event->buttons() & Qt::LeftButton))
-    return;
-
   if (currTool)
   {
     currTool->mouseMove(event);
@@ -118,9 +111,6 @@ Canvas::mouseMoveEvent(QMouseEvent* event)
 void
 Canvas::mouseReleaseEvent(QMouseEvent* event)
 {
-  if (event->button() != Qt::LeftButton)
-    return;
-
   if (currTool)
   {
     currTool->mouseRelease(event);

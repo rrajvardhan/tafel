@@ -3,6 +3,10 @@
 void
 TEraser::mousePress(QMouseEvent* event)
 {
+
+  if (event->button() != Qt::LeftButton)
+    return;
+
   path      = QPainterPath(canvas.toWorld(event->position()));
   isErasing = true;
 }
@@ -20,6 +24,10 @@ TEraser::mouseMove(QMouseEvent* event)
 void
 TEraser::mouseRelease(QMouseEvent* event)
 {
+
+  if (event->button() != Qt::LeftButton)
+    return;
+
   if (!isErasing)
     return;
 

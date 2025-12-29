@@ -9,6 +9,8 @@ TText::TText(CanvasContext& ctx) : Tool(ctx)
 void
 TText::mousePress(QMouseEvent* event)
 {
+  if (event->button() != Qt::LeftButton)
+    return;
   insertPos = canvas.toWorld(event->position());
   pressPos  = insertPos;
 

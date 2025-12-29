@@ -6,6 +6,7 @@
 #include "Pencil.hpp"
 #include "Rect.hpp"
 #include "Selection.hpp"
+#include "Spline.hpp"
 #include "Text.hpp"
 #include "ui/Kit.hpp"
 #include <QButtonGroup>
@@ -23,11 +24,12 @@ Kit::Kit(Canvas* canvas) : canvas(canvas), QWidget(canvas)
     { "Select", ":/icons/select_arrow.svg", makeTool<TSelect> },
     { "Pencil", ":/icons/pencil.svg", makeTool<TPencil> },
     { "Line", ":/icons/line.svg", makeTool<TLine> },
+    { "Spline", ":/icons/spline.svg", makeTool<TSpline> },
     { "Rectangle", ":/icons/rect.svg", makeTool<TRect> },
     { "Ellipse", ":/icons/ellipse.svg", makeTool<TEllipse> },
     { "Eraser", ":/icons/eraser.svg", makeTool<TEraser> },
-    { "Pan", ":/icons/hand.svg", makeTool<TPan> },
     { "Text", ":/icons/text.svg", makeTool<TText> },
+    { "Pan", ":/icons/hand.svg", makeTool<TPan> },
   };
 
   auto* layout = new QHBoxLayout(this);

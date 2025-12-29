@@ -4,6 +4,10 @@
 void
 TLine::mousePress(QMouseEvent* event)
 {
+
+  if (event->button() != Qt::LeftButton)
+    return;
+
   start      = canvas.toWorld(event->pos());
   curr       = start;
   isDragging = true;
@@ -19,6 +23,9 @@ TLine::mouseMove(QMouseEvent* event)
 void
 TLine::mouseRelease(QMouseEvent* event)
 {
+  if (event->button() != Qt::LeftButton)
+    return;
+
   isDragging  = false;
   QPointF end = canvas.toWorld(event->position());
 
