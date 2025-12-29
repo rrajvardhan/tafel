@@ -4,14 +4,15 @@
 void
 TLine::mousePress(QMouseEvent* event)
 {
-  start      = canvas.toWorld(event->position());
+  start      = canvas.toWorld(event->pos());
+  curr       = start;
   isDragging = true;
 }
 
 void
 TLine::mouseMove(QMouseEvent* event)
 {
-  curr = canvas.toWorld(event->position());
+  curr = canvas.toWorld(event->pos());
   canvas.repaint();
 }
 
@@ -20,6 +21,10 @@ TLine::mouseRelease(QMouseEvent* event)
 {
   isDragging  = false;
   QPointF end = canvas.toWorld(event->position());
+
+  if (start == curr)
+    return;
+
   canvas.addDrawable(std::make_unique<Line>(start, end, canvas.pen()));
 }
 

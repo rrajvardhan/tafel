@@ -39,3 +39,25 @@ Text::translate(const QPointF& d)
 {
   pos += d;
 }
+
+void
+Text::scale(const QPointF&, qreal sx, qreal sy)
+{
+
+  qreal size = font.pointSizeF();
+  if (size <= 0)
+    size = 18.0;
+
+  if (sy > 1.0)
+    size += 1.0;
+  else if (sy < 1.0)
+    size -= 1.0;
+
+  if (sx > 1.0)
+    size += 1.0;
+  else if (sx < 1.0)
+    size -= 1.0;
+
+  size = std::clamp(size, 6.0, 200.0);
+  font.setPointSizeF(size);
+}

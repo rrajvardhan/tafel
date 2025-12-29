@@ -16,4 +16,5 @@ struct Text : Drawable
   QRectF bounds() const override;
   bool   intersects(const QPainterPath& path) const override;
   void   translate(const QPointF& d) override;
+  void   scale(const QPointF& anchor, qreal sx, qreal sy) override;
 };

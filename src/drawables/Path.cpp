@@ -58,3 +58,14 @@ Path::translate(const QPointF& delta)
 {
   path.translate(delta);
 }
+
+void
+Path::scale(const QPointF& anchor, qreal sx, qreal sy)
+{
+  QTransform t;
+  t.translate(anchor.x(), anchor.y());
+  t.scale(sx, sy);
+  t.translate(-anchor.x(), -anchor.y());
+
+  path = t.map(path);
+}

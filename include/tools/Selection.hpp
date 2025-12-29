@@ -8,6 +8,10 @@ struct TSelect : Tool
   QPointF end;
   bool    isDragging = false;
 
+  bool    isScaling = false;
+  QPointF scaleAnchor;
+  QPointF lastScalePos;
+
   explicit TSelect(CanvasContext& ctx) : Tool(ctx) {}
 
   void mousePress(QMouseEvent* e) override;

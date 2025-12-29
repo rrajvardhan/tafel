@@ -76,3 +76,11 @@ Ellipse::translate(const QPointF& d)
   a += d.toPoint();
   b += d.toPoint();
 }
+
+void
+Ellipse::scale(const QPointF& anchor, qreal sx, qreal sy)
+{
+  a = anchor + QPointF((a.x() - anchor.x()) * sx, (a.y() - anchor.y()) * sy);
+
+  b = anchor + QPointF((b.x() - anchor.x()) * sx, (b.y() - anchor.y()) * sy);
+}
