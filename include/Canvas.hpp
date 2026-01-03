@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ExportButton.hpp"
 #include "drawables/Drawable.hpp"
 #include "tools/Tool.hpp"
 #include "ui/Brush.hpp"
@@ -42,6 +43,8 @@ public:
   const std::vector<Drawable*>& selection() const override { return selections; }
 
   //--------------------------------------------------------
+  QSize canvasSize() const;
+  void  renderToPainter(QPainter& painter);
 
 private:
   std::vector<Drawable*> selections;
@@ -61,7 +64,8 @@ private:
 
   QPointF panOffset{ 0, 0 };
 
-  UI::Kit*    _kit;
-  UI::Stroke* _stroke;
-  UI::Brush*  _brush;
+  UI::Kit*          _kit;
+  UI::Stroke*       _stroke;
+  UI::Brush*        _brush;
+  UI::ExportButton* _export;
 };

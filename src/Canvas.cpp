@@ -1,6 +1,8 @@
 #include "Canvas.hpp"
+#include "ExportButton.hpp"
 #include "Style.hpp"
 #include <QVBoxLayout>
+#include <qnamespace.h>
 
 Canvas::Canvas(QWidget* parent) : QWidget(parent)
 {
@@ -9,7 +11,8 @@ Canvas::Canvas(QWidget* parent) : QWidget(parent)
   auto* kitContainer = new QFrame(this);
   kitContainer->setObjectName("KitContainer");
 
-  _kit = new UI::Kit(this);
+  _export = new UI::ExportButton(this);
+  _kit    = new UI::Kit(this);
 
   auto* kitLayout = new QHBoxLayout(kitContainer);
   kitLayout->setContentsMargins(8, 8, 8, 8);
@@ -28,11 +31,18 @@ Canvas::Canvas(QWidget* parent) : QWidget(parent)
   paletteLayout->addWidget(_stroke);
   paletteLayout->addWidget(_brush);
 
+  auto* topBar    = new QWidget(this);
+  auto* topLayout = new QHBoxLayout(topBar);
+  topLayout->setContentsMargins(8, 8, 8, 8);
+  topLayout->addStretch();
+  topLayout->addWidget(kitContainer);
+  topLayout->addStretch();
+  topLayout->addWidget(_export);
+
   auto* layout = new QVBoxLayout(this);
   layout->setContentsMargins(0, 8, 0, 0);
   layout->setSpacing(6);
-
-  layout->addWidget(kitContainer, 0, Qt::AlignTop | Qt::AlignHCenter);
+  layout->addWidget(topBar);
   layout->addWidget(paletteContainer, 0, Qt::AlignLeft | Qt::AlignHCenter);
   layout->addStretch();
 }
@@ -57,9 +67,8 @@ Canvas::resizeEvent(QResizeEvent* e)
 }
 
 void
-Canvas::paintEvent(QPaintEvent* event)
+Canvas::renderToPainter(QPainter& painter)
 {
-  QPainter painter(this);
   painter.setRenderHint(QPainter::Antialiasing);
   painter.translate(panOffset);
 
@@ -88,6 +97,13 @@ Canvas::paintEvent(QPaintEvent* event)
     painter.setBrush(Qt::NoBrush);
     painter.drawRect(bounds);
   }
+}
+
+void
+Canvas::paintEvent(QPaintEvent* event)
+{
+  QPainter painter(this);
+  renderToPainter(painter);
 }
 
 void
@@ -191,4 +207,10 @@ Canvas::setSelection(const std::vector<Drawable*>& sel)
 {
   selections = sel;
   update();
+}
+
+QSize
+Canvas::canvasSize() const
+{
+  return size();
 }
